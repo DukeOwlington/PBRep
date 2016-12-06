@@ -2,7 +2,7 @@
 
 // constant strings definitions
 const static char * const menuChoice = "1: Add subscriber\n"
-    "2: Delete subscriber by name\n"
+    "2: Delete subscriber by ID\n"
     "3: Find subscriber by ID\n"
     "4: Find subscriber by name\n"
     "5: Print all subscribers\n"
