@@ -1,27 +1,27 @@
 #include "phonebook.h"
 
 // constant strings definitions
-const static char *const headerInformation =
+const static char * const headerInformation =
     "ID\tNAME\tSECOND NAME\tPHONE NUMBER";
 
-const static char *const recordNotFound = "No such record";
+const static char * const recordNotFound = "No such record";
 
-const static char *const incorrectInput = "Incorrect input";
+const static char * const incorrectInput = "Incorrect input";
 
-const static char *const successMessage = "Success!";
+const static char * const successMessage = "Success!";
 
 // static functions declarations
 // requests subscribers ID from keyboard
 static int RequestID(void);
 
 // requests subscribers name from keyboard
-static char* RequestName(void);
+static char *RequestName(void);
 
 // requests subscribers second name from keyboard
-static char* RequestSecondName(void);
+static char *RequestSecondName(void);
 
 // requests subscribers phone number from keyboard
-static char* RequestPhoneNumber(void);
+static char *RequestPhoneNumber(void);
 
 // returns true if some requested information was left empty
 static bool IsEmptyInput(PhoneBook *subscriber);
@@ -30,7 +30,7 @@ static bool IsEmptyInput(PhoneBook *subscriber);
 static bool IsExist(PhoneBook *phone_book_head, PhoneBook *subscriber);
 
 // creates a new subscriber node and returns pointer to it.
-inline static PhoneBook *CreateNewSubscriber(void);
+static PhoneBook *CreateNewSubscriber(void);
 
 struct PhoneBook {
   unsigned int id;
@@ -41,7 +41,7 @@ struct PhoneBook {
   struct PhoneBook *prev;
 };
 
-inline static PhoneBook *CreateNewSubscriber(void) {
+static PhoneBook *CreateNewSubscriber(void) {
   PhoneBook *new_subscriber = (PhoneBook *) malloc(sizeof(PhoneBook));
   new_subscriber->name = RequestName();
   new_subscriber->second_name = RequestSecondName();
@@ -63,7 +63,8 @@ static bool IsExist(PhoneBook *phone_book_head, PhoneBook *subscriber) {
   while (phone_book_head != NULL) {
     if (strcmp(phone_book_head->name, subscriber->name) == 0
         && strcmp(phone_book_head->second_name, subscriber->second_name) == 0
-        && strcmp(phone_book_head->phone_number, subscriber->phone_number) == 0) {
+        && strcmp(phone_book_head->phone_number, subscriber->phone_number)
+            == 0) {
       return true;
     }
     phone_book_head = phone_book_head->next;
@@ -71,7 +72,7 @@ static bool IsExist(PhoneBook *phone_book_head, PhoneBook *subscriber) {
   return false;
 }
 
-inline void DeleteSubscriber(PhoneBook **subscriber) {
+void DeleteSubscriber(PhoneBook **subscriber) {
   free((*subscriber)->name);
   free((*subscriber)->second_name);
   free((*subscriber)->phone_number);
@@ -79,11 +80,10 @@ inline void DeleteSubscriber(PhoneBook **subscriber) {
 }
 
 void DeleteAllSubscribers(PhoneBook **phone_book_head) {
-  PhoneBook *subscriber;
-  while (phone_book_head != NULL) {
-    subscriber = *phone_book_head;
-    *phone_book_head = (*phone_book_head)->next;
+  PhoneBook *subscriber = *phone_book_head;;
+  while (subscriber != NULL) {
     DeleteSubscriber(&subscriber);
+    subscriber = subscriber->next;
   }
 }
 
@@ -97,7 +97,7 @@ static int RequestID(void) {
   return id;
 }
 
-static char* RequestName(void) {
+static char *RequestName(void) {
   unsigned int name_length = 32;
   const char * const nameMessage = "Enter the name: ";
   printf(nameMessage);
@@ -105,7 +105,7 @@ static char* RequestName(void) {
   return name;
 }
 
-static char* RequestSecondName(void) {
+static char *RequestSecondName(void) {
   unsigned int second_name_length = 32;
   const char * const second_nameMessage = "Enter the second name: ";
   printf(second_nameMessage);
@@ -114,7 +114,7 @@ static char* RequestSecondName(void) {
   return second_name;
 }
 
-static char* RequestPhoneNumber(void) {
+static char *RequestPhoneNumber(void) {
   unsigned int phone_number_length = 10;
   const char * const phone_numberMessage = "Enter the phone_number: ";
   printf(phone_numberMessage);
@@ -158,7 +158,8 @@ void AddSubscriber(PhoneBook **phone_book_head) {
   PhoneBook *new_subscriber = CreateNewSubscriber();
 
   // if entered strings are empty or entered subscriber already exists in the list
-  if (IsEmptyInput(new_subscriber) || IsExist(*phone_book_head, new_subscriber)) {
+  if (IsEmptyInput(new_subscriber)
+      || IsExist(*phone_book_head, new_subscriber)) {
     puts(incorrectInput);
     return;
   }
@@ -201,7 +202,7 @@ void FindSubscriberByName(PhoneBook *phone_book_head) {
 void FindSubscriberByID(PhoneBook *phone_book_head) {
   PhoneBook *subscriber = phone_book_head;
   unsigned int id = RequestID();
-  if(id == 0) {
+  if (id == 0) {
     puts(incorrectInput);
     return;
   }
@@ -221,7 +222,7 @@ void FindSubscriberByID(PhoneBook *phone_book_head) {
   puts("");
 }
 
-inline void PrintSubscriber(PhoneBook *phoneBook) {
+void PrintSubscriber(PhoneBook *phoneBook) {
   printf("%d\t", phoneBook->id);
   printf("%s\t", phoneBook->name);
   printf("%s\t", phoneBook->second_name);

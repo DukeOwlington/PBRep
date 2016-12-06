@@ -22,7 +22,7 @@ void AddSubscriber(PhoneBook **phone_book_head);
 void DeleteSubscriberByID(PhoneBook **phone_book_head);
 
 // deletes subscriber by name
-inline void DeleteSubscriber(PhoneBook **phone_book_head);
+void DeleteSubscriber(PhoneBook **phone_book_head);
 
 // deletes all subscribers
 void DeleteAllSubscribers(PhoneBook **phone_book_head);
@@ -34,7 +34,7 @@ void FindSubscriberByID(PhoneBook *phone_book_head);
 void FindSubscriberByName(PhoneBook *phone_book_head);
 
 // print given subscriber from list to the console
-inline void PrintSubscriber(PhoneBook *subscriber);
+void PrintSubscriber(PhoneBook *subscriber);
 
 // print all subscribers from list to the console
 void PrintAllSubscribers(PhoneBook *phone_book_head);

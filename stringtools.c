@@ -22,7 +22,7 @@ char *CreateString(unsigned int len_max) {
   return string;
 }
 
-inline bool isEmpty(char *string) {
+bool isEmpty(char *string) {
   if (string[0] == '\0' || string == NULL)
     return true;
   else

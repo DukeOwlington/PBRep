@@ -19,6 +19,6 @@
 char *CreateString(unsigned int len_max);
 
 // returns true if string is empty
-inline bool isEmpty(char *passed_string);
+bool isEmpty(char *passed_string);
 
 #endif
